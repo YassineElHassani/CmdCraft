@@ -117,11 +117,4 @@ class Users {
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-
-    public function activation() {
-        if(isset($_GET['id'])) {
-            $conn = Database::getConnection();
-            $stmt = $conn->prepare("UPDATE users SET is_active = 0 WHERE id = id");
-        }
-    }
 }
