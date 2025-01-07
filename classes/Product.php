@@ -6,6 +6,16 @@ class Product {
     private $description;
     private $price;
     private $quantity;
+    private $image;
+
+    public function __construct($id, $name, $description, $price, $quantity, $image) {
+        $this->id = $id;
+        $this->name = $name;
+        $this->description = $description;
+        $this->price = $price;
+        $this->quantity = $quantity;
+        $this->image = $image;
+    }
 
     public function getId() {
         return $this->id;
@@ -27,6 +37,14 @@ class Product {
         return $this->quantity;
     }
 
+    public function getImage() {
+        return $this->image;
+    }
+
+    public function setId($id) {
+        $this->id = $id;
+    }
+
     public function setName($name) {
         $this->name = $name;
     }
@@ -42,29 +60,31 @@ class Product {
     public function setQuantity($quantity) {
         $this->quantity = $quantity;
     }
-    public function __construct($id, $name, $description, $price, $quantity) {
-        // echo "Product object is created\n";
-        $this->id = $id;
-        $this->name = $name;
-        $this->description = $description;
-        $this->price = $price;
-        $this->quantity = $quantity;
-    }
 
-    public function __destruct() {
-        echo "Product object is destroyed\n";
+    public function setImage($image) {
+        $this->image = $image;
     }
 
     public function renderRow() {
-        return "<tr>
-                    <td>$this->name</td>
-                    <td>$this->description</td>
-                    <td>$this->price</td>
-                    <td>$this->quantity</td>
-                    <td>
-                        <a href='/products/edit.php?id=$this->id'>Edit</a>
-                        <a href='/products/delete.php?id=$this->id'>Delete</a>
-                    </td>
-                </tr>";
+        // $id = htmlspecialchars();
+        $name = htmlspecialchars($this->name);
+        $description = htmlspecialchars($this->description);
+        $price = htmlspecialchars($this->price);
+        $quantity = htmlspecialchars($this->quantity);
+        $image = htmlspecialchars($this->image);
+
+        return "
+        <tr>
+            <td>$name</td>
+            <td>$description</td>
+            <td>$price</td>
+            <td>$quantity</td>
+            <td><img src='$image' height='100px' width='100px'/></td>
+            <td>
+                <a class='badge-pending' href='../dashboard/products/edit.php?id=$this->id'>Edit</a><br>
+                <a class='badge-trashed' href='../dashboard/products/delete.php?id=$this->id'>Delete</a>
+            </td>
+        </tr>
+        ";
     }
 }
