@@ -1,5 +1,6 @@
 <?php
 require_once '../classes/ProductManager.php';
+require_once '../classes/Product.php';
 
 session_start();
 
@@ -7,6 +8,35 @@ if (!isset($_SESSION["id"]) || $_SESSION["role"] !== "admin") {
   header("Location: ../signin/index.php");
   exit();
 }
+
+
+$manager = new ProductManager();
+$products = $manager->displayAllProducts();
+
+if (isset($_POST['submit'])) {
+  
+  $name = $_POST["name"];
+  $description = $_POST["description"];
+  $price = $_POST["price"];
+  $quantity = $_POST["quantity"];
+  $image = $_POST["image"];
+  
+  $newProduct = new Product($id, $name, $description, $price, $quantity, $image);
+
+  $manager->addProduct($newProduct);
+
+  $_SESSION['newProduct'] = true;
+}
+
+
+
+$message = "";
+
+if (isset($_SESSION['newProduct']) && $_SESSION['newProduct'] === true) {
+  $message = "Product has been added!";
+  unset($_SESSION['newProduct']);
+}
+
 
 ?>
 
@@ -37,7 +67,7 @@ if (!isset($_SESSION["id"]) || $_SESSION["role"] !== "admin") {
             <span class="sr-only">Home</span>
             <span class="icon logo" aria-hidden="true"></span>
             <div class="logo-text">
-              <span class="logo-title">Elegant</span>
+              <span class="logo-title">Store</span>
               <span class="logo-subtitle">Dashboard</span>
             </div>
 
@@ -53,10 +83,10 @@ if (!isset($_SESSION["id"]) || $_SESSION["role"] !== "admin") {
               <a href="./index.php" class="active"><span class="icon home" aria-hidden="true"></span>Dashboard</a>
             </li>
             <li>
-              <a href="./users.php" class="active"><span class="icon user-3" aria-hidden="true"></span>Customers</a>
+              <a href="./users.php" class="active"><span class="icon user-3" aria-hidden="true"></span>Users</a>
             </li>
             <li>
-              <a href="./products.php" class="active" ><span class="icon category" aria-hidden="true"></span>Products<span class="msg-counter">7</span></a>
+              <a href="./products.php" class="active" ><span class="icon category" aria-hidden="true"></span>Products</a>
             </li>
           </ul>
         </div>
@@ -109,27 +139,71 @@ if (!isset($_SESSION["id"]) || $_SESSION["role"] !== "admin") {
       <main class="main users chart-page" id="skip-target">
         <div class="container">
           <h2 class="main-title">Products</h2>
+
+          <?php 
+              if(!empty($message)) {
+                  echo "
+                      <div id='alert' class='badge-success' style='display: flex; justify-content: space-between; align-items: center; padding-left: 15px; width: 800px; height: 40px; margin-inline: auto;' role='alert'>
+                          <strong>$message</strong>
+                          <button id='close' style='margin-right: 15px; width: 30px; height: 30px; border-radius: 150px; text-decoration: none;' aria-label='Close'>X</button>
+                      </div>
+                  ";
+              }
+          ?>
           <div style="background-color: white; border-radius: 30px; font-weight: 500; font-size: 14px; line-height: 2.43; color: #767676; width: 800px; margin-inline: auto;">
-            <form action="" method="POST" style="display: flex; justify-content: space-around; align-items: center; padding: 15px; width: 800px;">
-              <div>
+            <form method="POST" style="width: 800px; height: 370px; margin-top: 50px;">
+              <div style="display: flex; justify-content: space-around; align-items: center; padding: 15px; width: 800px;">
                 <div>
-                  <label for="name">Product name: </label><br>
-                  <input type="text" id="name" name="name" placeholder="product name" style="padding-left: 6px;" required>
+                  <div>
+                    <label for="name">Product name: </label><br>
+                    <input type="text" id="name" name="name" placeholder="product name" style="padding-left: 6px;" required>
+                  </div>
+                  <div>
+                    <label for="price">Price: </label><br>
+                    <input type="number" id="price" name="price" step="0.01" placeholder="price" style="padding-left: 6px;" required>
+                  </div>
+                  <div>
+                    <label for="quantity">Quantity: </label><br>
+                    <input type="number" id="quantity" name="quantity" placeholder="quantity" style="padding-left: 6px;" required>
+                  </div>
                 </div>
                 <div>
-                  <label for="price">Price: </label><br>
-                  <input type="number" id="price" name="price" placeholder="price" style="padding-left: 6px;" required>
-                </div>
-                <div>
-                  <label for="quantity">Quantity: </label><br>
-                  <input type="number" id="quantity" name="quantity" placeholder="quantity" style="padding-left: 6px;" required>
+                  <label for="description">Description</label><br>
+                  <textarea name="description" id="description" placeholder="description" style="width: 300px; height: 180px;" style="padding-left: 6px;" required></textarea>
                 </div>
               </div>
-              <div>
-                <label for="description">Description</label><br>
-                <textarea name="description" id="description" placeholder="description" style="width: 300px; height: 180px;" style="padding-left: 6px;" required></textarea>
+              <div style="display: flex; justify-content: space-around; align-items: center; padding: 15px; width: 800px;">
+                <div>
+                  <label for="image">Product image: </label><br>
+                  <input type="text" id="image" name="image" placeholder="Enter the URL image" required>
+                </div>
+                <div>
+                  <button type="submit" id="submit" name="submit" style="width: 300px; height: 40px; background-color:rgb(79, 103, 240); border-radius: 30px; color: white;">Add Product</button>
+                </div>
               </div>
             </form>
+          </div>
+
+          <div class="users-table table-wrapper" style="margin-top: 80px;">
+            <table class="posts-table">
+              <thead>
+                <t class="users-table-info">
+                  <th>Product Name</th>
+                  <th>Description</th>
+                  <th>Price</th>
+                  <th>Quantity</th>
+                  <th>Image</th>
+                  <th>Action</th>
+                </t>
+              </thead>
+              <tbody>
+                <?php
+                  foreach($products as $product) {
+                    echo $product->renderRow();
+                  }
+                ?>
+              </tbody>
+            </table>
           </div>
         </div>
       </main>
@@ -141,12 +215,20 @@ if (!isset($_SESSION["id"]) || $_SESSION["role"] !== "admin") {
           <ul class="footer-end">
             <li><a href="##">About</a></li>
             <li><a href="##">Support</a></li>
-            <li><a href="##">Puchase</a></li>
+            <li><a href="##">Purchase</a></li>
           </ul>
         </div>
       </footer>
     </div>
   </div>
+  <script>
+    let alert = document.getElementById('alert');
+    let btn = document.getElementById('cancel');
+
+    btn.addEventListener("click", function() {
+      alert.style.visibility == "hidden";
+    });
+  </script>
   <!-- Chart library -->
   <script src="../plugins/chart.min.js"></script>
   <!-- Icons library -->
