@@ -1,5 +1,7 @@
 <?php
-require_once '../configs/Database.php';
+require_once __DIR__ . '/../configs/Database.php';
+require_once 'Product.php';
+
 
 
 class ProductManager {
@@ -10,19 +12,20 @@ class ProductManager {
         $products = $stmt->fetchAll();
         $data = [];
         foreach ($products as $product) {
-            $data[] = new Product($product['id'], $product['name'], $product['description'], $product['price'], $product['quantity']);
+            $data[] = new Product($product['id'], $product['name'], $product['description'], $product['price'], $product['quantity'], $product['image']);
         }
-        return $data;// [ Product, Product, Product]
+        return $data;
     }
 
     public function addProduct(Product $product) {
         $conn = Database::getConnection();
-        $stmt = $conn->prepare("INSERT INTO products (name, description, price, quantity) VALUES (:name, :description, :price, :quantity)");
+        $stmt = $conn->prepare("INSERT INTO products (name, description, price, quantity, image) VALUES (:name, :description, :price, :quantity, :image)");
         $stmt->execute([
             ':name' => $product->getName(),
             ':description' => $product->getDescription(),
             ':price' => $product->getPrice(),
-            ':quantity' => $product->getQuantity()
+            ':quantity' => $product->getQuantity(),
+            ':image' => $product->getImage()
         ]);
     }
 
@@ -30,7 +33,6 @@ class ProductManager {
     public function deleteProduct($id) {
         $conn = Database::getConnection();
         $stmt = $conn->prepare("DELETE FROM products WHERE id = :id");
-        // $stmt->bindParam(':id', $id);
         $stmt->execute([
             ':id' => $id
         ]);
@@ -43,17 +45,18 @@ class ProductManager {
             ':id' => $id
         ]);
         $product = $stmt->fetch();
-        return new Product($product['id'], $product['name'], $product['description'], $product['price'], $product['quantity']);
+        return new Product($product['id'], $product['name'], $product['description'], $product['price'], $product['quantity'], $product['image']);
     }
 
     public function updateProduct(Product $product) {
         $conn = Database::getConnection();
-        $stmt = $conn->prepare("UPDATE products SET name = :name, description = :description, price = :price, quantity = :quantity WHERE id = :id");
+        $stmt = $conn->prepare("UPDATE products SET name = :name, description = :description, price = :price, quantity = :quantity, image = :image WHERE id = :id");
         $stmt->execute([
             ':name' => $product->getName(),
             ':description' => $product->getDescription(),
             ':price' => $product->getPrice(),
             ':quantity' => $product->getQuantity(),
+            ':image' => $product->getImage(),
             ':id' => $product->getId()
         ]);
     }
