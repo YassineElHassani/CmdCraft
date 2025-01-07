@@ -36,7 +36,7 @@ if (!isset($_SESSION["id"]) || $_SESSION["role"] !== "admin") {
             <span class="sr-only">Home</span>
             <span class="icon logo" aria-hidden="true"></span>
             <div class="logo-text">
-              <span class="logo-title">Elegant</span>
+              <span class="logo-title">Store</span>
               <span class="logo-subtitle">Dashboard</span>
             </div>
 
@@ -52,10 +52,10 @@ if (!isset($_SESSION["id"]) || $_SESSION["role"] !== "admin") {
               <a href="./index.php" class="active"><span class="icon home" aria-hidden="true"></span>Dashboard</a>
             </li>
             <li>
-              <a href="./users.php" class="active"><span class="icon user-3" aria-hidden="true"></span>Customers</a>
+              <a href="./users.php" class="active"><span class="icon user-3" aria-hidden="true"></span>Users</a>
             </li>
             <li>
-              <a href="./products.php" class="active" ><span class="icon category" aria-hidden="true"></span>Products<span class="msg-counter">7</span></a>
+              <a href="./products.php" class="active" ><span class="icon category" aria-hidden="true"></span>Products</a>
             </li>
           </ul>
         </div>
@@ -225,144 +225,7 @@ if (!isset($_SESSION["id"]) || $_SESSION["role"] !== "admin") {
               <!-- <div class="chart">
                 <canvas id="myChart" aria-label="Site statistics" role="img"></canvas>
               </div> -->
-              <div class="users-table table-wrapper">
-                <table class="posts-table">
-                  <thead>
-                    <tr class="users-table-info">
-                      <th>Customer</th>
-                      <th>Status</th>
-                      <th>Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>
-                        <div class="pages-table-img">
-                          Jenny Wilson
-                        </div>
-                      </td>
-                      <td><span class="badge-trashed">Deactivated</span></td>
-                      <td>
-                        <span class="p-relative">
-                          <button class="dropdown-btn transparent-btn" type="button" title="More info">
-                            <div class="sr-only">More info</div>
-                            <i data-feather="more-horizontal" aria-hidden="true"></i>
-                          </button>
-                          <ul class="users-item-dropdown dropdown">
-                            <li><a href="##">Edit</a></li>
-                            <li><a href="##">Delete</a></li>
-                          </ul>
-                        </span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <div class="pages-table-img">
-                          Annette Black
-                        </div>
-                      </td>
-                      <td><span class="badge-trashed">Deactivated</span></td>
-                      <td>
-                        <span class="p-relative">
-                          <button class="dropdown-btn transparent-btn" type="button" title="More info">
-                            <div class="sr-only">More info</div>
-                            <i data-feather="more-horizontal" aria-hidden="true"></i>
-                          </button>
-                          <ul class="users-item-dropdown dropdown">
-                            <li><a href="##">Edit</a></li>
-                            <li><a href="##">Quick edit</a></li>
-                            <li><a href="##">Trash</a></li>
-                          </ul>
-                        </span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <div class="pages-table-img">
-                          Kathryn Murphy
-                        </div>
-                      </td>
-                      <td><span class="badge-success">Active</span></td>
-                      <td>
-                        <span class="p-relative">
-                          <button class="dropdown-btn transparent-btn" type="button" title="More info">
-                            <div class="sr-only">More info</div>
-                            <i data-feather="more-horizontal" aria-hidden="true"></i>
-                          </button>
-                          <ul class="users-item-dropdown dropdown">
-                            <li><a href="##">Edit</a></li>
-                            <li><a href="##">Quick edit</a></li>
-                            <li><a href="##">Trash</a></li>
-                          </ul>
-                        </span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <div class="pages-table-img">
-                          Guy Hawkins
-                        </div>
-                      </td>
-                      <td><span class="badge-success">Active</span></td>
-                      <td>
-                        <span class="p-relative">
-                          <button class="dropdown-btn transparent-btn" type="button" title="More info">
-                            <div class="sr-only">More info</div>
-                            <i data-feather="more-horizontal" aria-hidden="true"></i>
-                          </button>
-                          <ul class="users-item-dropdown dropdown">
-                            <li><a href="##">Edit</a></li>
-                            <li><a href="##">Quick edit</a></li>
-                            <li><a href="##">Trash</a></li>
-                          </ul>
-                        </span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <div class="pages-table-img">
-                          Robert Fox
-                        </div>
-                      </td>
-                      <td><span class="badge-success">Active</span></td>
-                      <td>
-                        <span class="p-relative">
-                          <button class="dropdown-btn transparent-btn" type="button" title="More info">
-                            <div class="sr-only">More info</div>
-                            <i data-feather="more-horizontal" aria-hidden="true"></i>
-                          </button>
-                          <ul class="users-item-dropdown dropdown">
-                            <li><a href="##">Edit</a></li>
-                            <li><a href="##">Quick edit</a></li>
-                            <li><a href="##">Trash</a></li>
-                          </ul>
-                        </span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <div class="pages-table-img">
-                          Robert Fox
-                        </div>
-                      </td>
-                      <td><span class="badge-success">Active</span></td>
-                      <td>
-                        <span class="p-relative">
-                          <button class="dropdown-btn transparent-btn" type="button" title="More info">
-                            <div class="sr-only">More info</div>
-                            <i data-feather="more-horizontal" aria-hidden="true"></i>
-                          </button>
-                          <ul class="users-item-dropdown dropdown">
-                            <li><a href="##">Edit</a></li>
-                            <li><a href="##">Quick edit</a></li>
-                            <li><a href="##">Trash</a></li>
-                          </ul>
-                        </span>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+              
             </div>
             <div class="col-lg-3">
               
@@ -384,6 +247,12 @@ if (!isset($_SESSION["id"]) || $_SESSION["role"] !== "admin") {
       </footer>
     </div>
   </div>
+  <!-- Chart library -->
+  <script src="../plugins/chart.min.js"></script>
+  <!-- Icons library -->
+  <script src="../plugins/feather.min.js"></script>
+  <!-- Custom scripts -->
+  <script src="../js/script.js"></script>
 </body>
 
 </html>
