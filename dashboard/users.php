@@ -40,7 +40,7 @@ $customer = $customers->getAllUsers();
             <span class="sr-only">Home</span>
             <span class="icon logo" aria-hidden="true"></span>
             <div class="logo-text">
-              <span class="logo-title">Elegant</span>
+              <span class="logo-title">Store</span>
               <span class="logo-subtitle">Dashboard</span>
             </div>
 
@@ -56,10 +56,10 @@ $customer = $customers->getAllUsers();
               <a href="./index.php" class="active"><span class="icon home" aria-hidden="true"></span>Dashboard</a>
             </li>
             <li>
-              <a href="./users.php" class="active"><span class="icon user-3" aria-hidden="true"></span>Customers</a>
+              <a href="./users.php" class="active"><span class="icon user-3" aria-hidden="true"></span>Users</a>
             </li>
             <li>
-              <a href="./products.php" class="active"><span class="icon category" aria-hidden="true"></span>Products<span class="msg-counter">7</span></a>
+              <a href="./products.php" class="active"><span class="icon category" aria-hidden="true"></span>Products</a>
             </li>
           </ul>
         </div>
@@ -111,13 +111,14 @@ $customer = $customers->getAllUsers();
       <!-- ! Main -->
       <main class="main users chart-page" id="skip-target">
         <div class="container">
-          <h2 class="main-title">Customers</h2>
+          <h2 class="main-title">Users</h2>
           <div class="users-table table-wrapper">
             <table class="posts-table">
               <thead>
                 <tr class="users-table-info">
                   <th>ID</th>
-                  <th>Customer</th>
+                  <th>Name</th>
+                  <th>Role</th>
                   <th>Status</th>
                   <th>Action</th>
                 </tr>
@@ -132,6 +133,9 @@ $customer = $customers->getAllUsers();
                     </td>
                     <td>
                       <div class="pages-table-img"><?php echo htmlspecialchars($customer[$i]["name"]) ?></div>
+                    </td>
+                    <td>
+                      <div class="pages-table-img"><?php echo htmlspecialchars($customer[$i]["role"]) ?></div>
                     </td>
                     <?php
                       if ($customer[$i]["is_active"] == 1) {
