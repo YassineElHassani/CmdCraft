@@ -99,7 +99,7 @@ class Users {
                 } else {
                     header("Location: ../dashboard/index.php");
                 }
-            } elseif($user['role'] == "customer") {
+            } else if($user['role'] == "customer") {
                 if($user['is_active'] == 0) {
                     $_SESSION['noPerm'] = true;
                 } else {
@@ -113,7 +113,7 @@ class Users {
 
     public function getAllUsers() {
         $conn = Database::getConnection();
-        $stmt = $conn->prepare("SELECT id, name, email, is_active FROM users");
+        $stmt = $conn->prepare("SELECT * FROM users");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
