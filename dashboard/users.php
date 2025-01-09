@@ -30,7 +30,6 @@ $customer = $customers->getAllUsers();
 <body>
   <div class="layer"></div>
   <!-- ! Body -->
-  <a class="skip-link sr-only" href="#skip-target">Skip to content</a>
   <div class="page-flex">
     <!-- ! Sidebar -->
     <aside class="sidebar">
@@ -60,6 +59,9 @@ $customer = $customers->getAllUsers();
             </li>
             <li>
               <a href="./products.php" class="active"><span class="icon category" aria-hidden="true"></span>Products</a>
+            </li>
+            <li>
+              <a href="./orders.php" class="active" ><span class="icon paper" aria-hidden="true"></span>Orders</a>
             </li>
           </ul>
         </div>
@@ -91,14 +93,6 @@ $customer = $customers->getAllUsers();
                 </span>
               </button>
               <ul class="users-item-dropdown nav-user-dropdown dropdown">
-                <li><a href="##">
-                    <i data-feather="user" aria-hidden="true"></i>
-                    <span>Profile</span>
-                  </a></li>
-                <li><a href="##">
-                    <i data-feather="settings" aria-hidden="true"></i>
-                    <span>Account settings</span>
-                  </a></li>
                 <li><a class="danger" href="##">
                     <i data-feather="log-out" aria-hidden="true"></i>
                     <span>Log out</span>
@@ -174,7 +168,7 @@ $customer = $customers->getAllUsers();
           <ul class="footer-end">
             <li><a href="##">About</a></li>
             <li><a href="##">Support</a></li>
-            <li><a href="##">Puchase</a></li>
+            <li><a href="##">Purchase</a></li>
           </ul>
         </div>
       </footer>
