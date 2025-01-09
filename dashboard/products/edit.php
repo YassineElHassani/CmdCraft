@@ -42,7 +42,6 @@ if (isset($_GET["id"])) {
 <body>
   <div class="layer"></div>
   <!-- ! Body -->
-  <a class="skip-link sr-only" href="#skip-target">Skip to content</a>
   <div class="page-flex">
     <!-- ! Sidebar -->
     <aside class="sidebar">
@@ -72,6 +71,9 @@ if (isset($_GET["id"])) {
             </li>
             <li>
               <a href="../products.php" class="active" ><span class="icon category" aria-hidden="true"></span>Products</a>
+            </li>
+            <li>
+              <a href="./orders.php" class="active" ><span class="icon paper" aria-hidden="true"></span>Orders</a>
             </li>
           </ul>
         </div>
@@ -103,14 +105,6 @@ if (isset($_GET["id"])) {
                 </span>
               </button>
               <ul class="users-item-dropdown nav-user-dropdown dropdown">
-                <li><a href="##">
-                    <i data-feather="user" aria-hidden="true"></i>
-                    <span>Profile</span>
-                  </a></li>
-                <li><a href="##">
-                    <i data-feather="settings" aria-hidden="true"></i>
-                    <span>Account settings</span>
-                  </a></li>
                 <li><a class="danger" href="##">
                     <i data-feather="log-out" aria-hidden="true"></i>
                     <span>Log out</span>
