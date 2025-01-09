@@ -66,7 +66,6 @@ class Product {
     }
 
     public function renderRow() {
-        // $id = htmlspecialchars();
         $name = htmlspecialchars($this->name);
         $description = htmlspecialchars($this->description);
         $price = htmlspecialchars($this->price);
