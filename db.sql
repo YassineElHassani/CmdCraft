@@ -1,5 +1,7 @@
 CREATE DATABASE cmd_craft;
 
+USE cmd_craft;
+
 CREATE TABLE users(
 	id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(100) NOT NULL,
@@ -21,7 +23,8 @@ CREATE TABLE products(
     name VARCHAR(255) NOT NULL,
     description TEXT NOT NULL,
     price FLOAT NOT NULL,
-    quantity INT NOT NULL
+    quantity INT NOT NULL,
+    image VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE order_details(
