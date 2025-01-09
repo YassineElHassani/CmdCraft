@@ -21,7 +21,7 @@ if (isset($_POST['submit'])) {
   $quantity = $_POST["quantity"];
   $image = $_POST["image"];
   
-  $newProduct = new Product($id, $name, $description, $price, $quantity, $image);
+  $newProduct = new Product($id = null, $name, $description, $price, $quantity, $image);
 
   $manager->addProduct($newProduct);
 
@@ -57,7 +57,6 @@ if (isset($_SESSION['newProduct']) && $_SESSION['newProduct'] === true) {
 <body>
   <div class="layer"></div>
   <!-- ! Body -->
-  <a class="skip-link sr-only" href="#skip-target">Skip to content</a>
   <div class="page-flex">
     <!-- ! Sidebar -->
     <aside class="sidebar">
@@ -87,6 +86,9 @@ if (isset($_SESSION['newProduct']) && $_SESSION['newProduct'] === true) {
             </li>
             <li>
               <a href="./products.php" class="active" ><span class="icon category" aria-hidden="true"></span>Products</a>
+            </li>
+            <li>
+              <a href="./orders.php" class="active" ><span class="icon paper" aria-hidden="true"></span>Orders</a>
             </li>
           </ul>
         </div>
@@ -118,14 +120,6 @@ if (isset($_SESSION['newProduct']) && $_SESSION['newProduct'] === true) {
                 </span>
               </button>
               <ul class="users-item-dropdown nav-user-dropdown dropdown">
-                <li><a href="##">
-                    <i data-feather="user" aria-hidden="true"></i>
-                    <span>Profile</span>
-                  </a></li>
-                <li><a href="##">
-                    <i data-feather="settings" aria-hidden="true"></i>
-                    <span>Account settings</span>
-                  </a></li>
                 <li><a class="danger" href="##">
                     <i data-feather="log-out" aria-hidden="true"></i>
                     <span>Log out</span>
@@ -143,7 +137,7 @@ if (isset($_SESSION['newProduct']) && $_SESSION['newProduct'] === true) {
           <?php 
               if(!empty($message)) {
                   echo "
-                      <div id='alert' class='badge-success' style='display: flex; justify-content: space-between; align-items: center; padding-left: 15px; width: 800px; height: 40px; margin-inline: auto;' role='alert'>
+                      <div id='alert' class='badge-success' style='display: flex; justify-content: space-between; align-items: center; padding-left: 15px; width: 800px; height: 40px; margin-inline: auto; ' role='alert'>
                           <strong>$message</strong>
                           <button id='close' style='margin-right: 15px; width: 30px; height: 30px; border-radius: 150px; text-decoration: none;' aria-label='Close'>X</button>
                       </div>
@@ -226,7 +220,7 @@ if (isset($_SESSION['newProduct']) && $_SESSION['newProduct'] === true) {
     let btn = document.getElementById('cancel');
 
     btn.addEventListener("click", function() {
-      alert.style.visibility == "hidden";
+      alert.style.visibility = "hidden";
     });
   </script>
   <!-- Chart library -->
