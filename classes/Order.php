@@ -43,7 +43,6 @@ class Order {
     public function cancelOrder($id) {
         $conn = Database::getConnection();
         $stmt = $conn->prepare("DELETE FROM orders WHERE id = :id");
-        // $stmt->bindParam(':id', $id);
         $stmt->execute([
             ':id' => $id
         ]);
