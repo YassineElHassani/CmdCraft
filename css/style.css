@@ -1114,6 +1114,12 @@ body {
   height: 24px;
 }
 
+.bag {
+  background-image: url(../img/svg/Bulk/Bag.svg);
+  width: 24px;
+  height: 24px;
+}
+
 .avatar {
   background-image: url(../img/avatar/Avatar.svg);
   width: 56px;
@@ -2661,8 +2667,8 @@ label {
 }
 
 .stat-cards-icon.primary {
-  background-color: rgba(47, 73, 209, 0.1);
-  color: #2f49d1;
+  background-color: rgba(209, 47, 47, 0.1);
+  color: #d12f2f;
 }
 
 .stat-cards-icon.warning {
