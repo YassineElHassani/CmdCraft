@@ -1,4 +1,5 @@
 <?php
+require_once '../classes/Admin.php';
 
 session_start();
 
@@ -6,6 +7,12 @@ if (!isset($_SESSION["id"]) || $_SESSION["role"] !== "admin") {
   header("Location: ../signin/index.php");
   exit();
 }
+
+$stats = new Admin();
+$totalUsers = $stats->totalUsers();
+$totalActiveCustomers = $stats->totalActiveCustomers();
+$totalProducts = $stats->totalProducts();
+$totalOrders = $stats->totalOrders();
 
 ?>
 
@@ -21,12 +28,12 @@ if (!isset($_SESSION["id"]) || $_SESSION["role"] !== "admin") {
   <link rel="shortcut icon" href="../img/svg/logo.svg" type="image/x-icon">
   <!-- Custom styles -->
   <link rel="stylesheet" href="../css/style.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
   <div class="layer"></div>
   <!-- ! Body -->
-  <a class="skip-link sr-only" href="#skip-target">Skip to content</a>
   <div class="page-flex">
     <!-- ! Sidebar -->
     <aside class="sidebar">
@@ -56,6 +63,9 @@ if (!isset($_SESSION["id"]) || $_SESSION["role"] !== "admin") {
             </li>
             <li>
               <a href="./products.php" class="active" ><span class="icon category" aria-hidden="true"></span>Products</a>
+            </li>
+            <li>
+              <a href="./orders.php" class="active" ><span class="icon paper" aria-hidden="true"></span>Orders</a>
             </li>
           </ul>
         </div>
@@ -129,14 +139,6 @@ if (!isset($_SESSION["id"]) || $_SESSION["role"] !== "admin") {
                 </span>
               </button>
               <ul class="users-item-dropdown nav-user-dropdown dropdown">
-                <li><a href="##">
-                    <i data-feather="user" aria-hidden="true"></i>
-                    <span>Profile</span>
-                  </a></li>
-                <li><a href="##">
-                    <i data-feather="settings" aria-hidden="true"></i>
-                    <span>Account settings</span>
-                  </a></li>
                 <li><a class="danger" href="##">
                     <i data-feather="log-out" aria-hidden="true"></i>
                     <span>Log out</span>
@@ -157,12 +159,12 @@ if (!isset($_SESSION["id"]) || $_SESSION["role"] !== "admin") {
                   <i data-feather="bar-chart-2" aria-hidden="true"></i>
                 </div>
                 <div class="stat-cards-info">
-                  <p class="stat-cards-info__num">1478 286</p>
+                  <p class="stat-cards-info__num"><?php echo htmlspecialchars($totalOrders); ?></p>
                   <p class="stat-cards-info__title">Total Orders</p>
                   <p class="stat-cards-info__progress">
-                    <span class="stat-cards-info__profit success">
+                    <!-- <span class="stat-cards-info__profit success">
                       <i data-feather="trending-up" aria-hidden="true"></i>4.07%
-                    </span>
+                    </span> -->
                     Last month
                   </p>
                 </div>
@@ -174,12 +176,12 @@ if (!isset($_SESSION["id"]) || $_SESSION["role"] !== "admin") {
                   <i data-feather="file" aria-hidden="true"></i>
                 </div>
                 <div class="stat-cards-info">
-                  <p class="stat-cards-info__num">1478 286</p>
-                  <p class="stat-cards-info__title">Total Customers</p>
+                  <p class="stat-cards-info__num"><?php echo htmlspecialchars($totalUsers); ?></p>
+                  <p class="stat-cards-info__title">Total Users</p>
                   <p class="stat-cards-info__progress">
-                    <span class="stat-cards-info__profit success">
+                    <!-- <span class="stat-cards-info__profit success">
                       <i data-feather="trending-up" aria-hidden="true"></i>0.24%
-                    </span>
+                    </span> -->
                     Last month
                   </p>
                 </div>
@@ -191,12 +193,12 @@ if (!isset($_SESSION["id"]) || $_SESSION["role"] !== "admin") {
                   <i data-feather="file" aria-hidden="true"></i>
                 </div>
                 <div class="stat-cards-info">
-                  <p class="stat-cards-info__num">1478 286</p>
+                  <p class="stat-cards-info__num"><?php echo htmlspecialchars($totalProducts); ?></p>
                   <p class="stat-cards-info__title">Total Products</p>
                   <p class="stat-cards-info__progress">
-                    <span class="stat-cards-info__profit danger">
+                    <!-- <span class="stat-cards-info__profit danger">
                       <i data-feather="trending-down" aria-hidden="true"></i>1.64%
-                    </span>
+                    </span> -->
                     Last month
                   </p>
                 </div>
@@ -208,12 +210,12 @@ if (!isset($_SESSION["id"]) || $_SESSION["role"] !== "admin") {
                   <i data-feather="feather" aria-hidden="true"></i>
                 </div>
                 <div class="stat-cards-info">
-                  <p class="stat-cards-info__num">1478 286</p>
+                  <p class="stat-cards-info__num"><?php echo htmlspecialchars($totalActiveCustomers) ?></p>
                   <p class="stat-cards-info__title">Total Active Customers</p>
                   <p class="stat-cards-info__progress">
-                    <span class="stat-cards-info__profit warning">
+                    <!-- <span class="stat-cards-info__profit warning">
                       <i data-feather="trending-up" aria-hidden="true"></i>0.00%
-                    </span>
+                    </span> -->
                     Last month
                   </p>
                 </div>
@@ -222,13 +224,9 @@ if (!isset($_SESSION["id"]) || $_SESSION["role"] !== "admin") {
           </div>
           <div class="row">
             <div class="col-lg-9">
-              <!-- <div class="chart">
-                <canvas id="myChart" aria-label="Site statistics" role="img"></canvas>
-              </div> -->
-              
-            </div>
-            <div class="col-lg-3">
-              
+              <div style="height: 450px; margin-left: 370px; margin-top: 50px; background-color: white; border-radius: 30px; padding-left: 12%;">
+                <canvas id="chart"></canvas>
+              </div>
             </div>
           </div>
         </div>
@@ -241,14 +239,45 @@ if (!isset($_SESSION["id"]) || $_SESSION["role"] !== "admin") {
           <ul class="footer-end">
             <li><a href="##">About</a></li>
             <li><a href="##">Support</a></li>
-            <li><a href="##">Puchase</a></li>
+            <li><a href="##">Purchase</a></li>
           </ul>
         </div>
       </footer>
     </div>
   </div>
   <!-- Chart library -->
-  <script src="../plugins/chart.min.js"></script>
+  <script>
+
+  const totalOrders = <?php echo htmlspecialchars($totalOrders); ?>;
+  const totalUsers = <?php echo htmlspecialchars($totalUsers); ?>;
+  const totalProducts = <?php echo htmlspecialchars($totalProducts); ?>;
+  const totalActiveCustomers = <?php echo htmlspecialchars($totalActiveCustomers); ?>;
+
+  const data = {
+    labels: ['Orders', 'Users', 'Products', 'Active Customers'],
+    datasets: [{
+      label: 'Dataset Overview',
+      data: [totalOrders, totalUsers, totalProducts, totalActiveCustomers],
+      backgroundColor: [
+        'rgb(255, 88, 88)',
+        'rgb(255, 173, 50)',
+        'rgb(88, 135, 255)',
+        'rgb(75, 222, 151)'
+      ]
+    }]
+  };
+
+  const config = {
+    type: 'polarArea',
+    data: data,
+    options: {
+      responsive: true,
+    }
+  };
+
+  const ctx = document.getElementById('chart').getContext('2d');
+  new Chart(ctx, config);
+  </script>
   <!-- Icons library -->
   <script src="../plugins/feather.min.js"></script>
   <!-- Custom scripts -->
