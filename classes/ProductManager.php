@@ -48,6 +48,13 @@ class ProductManager {
         return new Product($product['id'], $product['name'], $product['description'], $product['price'], $product['quantity'], $product['image']);
     }
 
+    public function getAllProducts() {
+        $conn = Database::getConnection();
+        $stmt = $conn->prepare("SELECT * FROM products");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function updateProduct(Product $product) {
         $conn = Database::getConnection();
         $stmt = $conn->prepare("UPDATE products SET name = :name, description = :description, price = :price, quantity = :quantity, image = :image WHERE id = :id");
